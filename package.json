@@ -18,6 +18,7 @@
     "prettier": "^3.8.3"
   },
   "dependencies": {
+    "@dotenvx/dotenvx": "^1.65.1",
     "bcrypt": "^6.0.0",
     "cloudinary": "^2.10.0",
     "cookie-parser": "^1.4.7",
