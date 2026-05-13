@@ -26,7 +26,7 @@ const userSchema = new Schema({
     },
     avatar: {
         type: String, //cloudinary url
-        required: true,
+        required: false,
     },
     coverImage: {
         type: String, //cloudinary url
@@ -48,15 +48,20 @@ const userSchema = new Schema({
     timestamps: true
 })
 
-userSchema.pre("save" , async function (next) {
-    if(!this.isModified("password")) return next();
-    this.password = await bcrypt.hash(this.password ,10)
-    next()
+// userSchema.pre("save" , async function (next) {
+//     if(!this.isModified("password")) return next();
+//     this.password = await bcrypt.hash(this.password ,10)
+//     next()
+// })
+
+userSchema.pre("save", async function() {
+    if(!this.isModified("password")) return;
+    this.password = await bcrypt.hash(this.password, 10)
 })
 
 userSchema.methods.isPasswordCorrect = async function
 (password){
-    return await bcryprt.compare(password ,this.password)
+    return await bcrypt.compare(password ,this.password)
 }
 
 userSchema.methods.generateAccess_Token = function(){
